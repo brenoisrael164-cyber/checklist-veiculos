@@ -43,18 +43,40 @@ select{min-height:40px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:8px 0}.kpi{background:var(--bg);border-radius:12px;padding:10px;font-size:12px;color:var(--mu)}.kpi b{display:block;font-size:24px;color:var(--tx)}
 .bar{display:flex;align-items:flex-end;gap:2px;height:90px;margin-top:8px}.bar i{flex:1;background:var(--C);border-radius:3px 3px 0 0;min-height:2px}
 .tb{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}.tb th,.tb td{padding:6px 4px;border-top:1px solid var(--bd);text-align:left;vertical-align:middle}.tb th{color:var(--mu);font-size:11px}
+body.wide main{max-width:1100px}
+.fl{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}.chips:not(:empty){margin-top:10px}.chip{background:var(--bg);border:1px solid var(--bd);border-radius:999px;padding:5px 12px;font-size:12px;cursor:pointer}
+.cg{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px;margin-bottom:12px}.cg .card{margin:0}
+.cw{position:relative;height:250px;margin-top:8px}.kpi.cl{cursor:pointer}.kpi.cl:hover{outline:2px solid var(--ac)}
+.tbw{overflow-x:auto;margin-top:10px}.tb th.so{cursor:pointer;white-space:nowrap}.tb tr.rw{cursor:pointer}.tb tr.rw:hover td{background:var(--bg)}.tb tr.dt td{background:var(--bg);font-size:12px;line-height:1.7}
 .hd{border-top:1px solid var(--bd);padding:8px 0}.hd summary{display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;list-style:none}
 .ri{padding:4px 0;border-top:1px dashed var(--bd);font-size:13px}.r{float:right}.r.C{color:var(--C)}.r.NC{color:var(--NC)}.r.PR{color:var(--PR)}.r.NA{color:var(--NA)}
 @media print{#hp,.tabs,.act,.nt,#msg{display:none!important}.seg button:not(.on){visibility:hidden}body{background:#fff;color:#000}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
 <main>
 <header class="top"><img class="logo" alt="ERO"><div><h1>Checklist de Veículos de Transporte e Utilitários</h1>
 <div class="sub">RG-EROT-SSO-004 · RV 00 <span id="mode"></span> <b id="q"></b></div></div></header>
 
-<section id="pn" class="hide"><div class="card"><div class="act"><button class="btn" data-d="7">7 dias</button><button class="btn" data-d="30">30 dias</button><button class="btn" data-d="90">90 dias</button></div></div><div id="pb"></div></section>
+<section id="pn" class="hide">
+<div class="card"><div class="fl">
+<div><label>Período</label><select id="f_d"><option value="7">7 dias</option><option value="30" selected>30 dias</option><option value="90">90 dias</option><option value="365">12 meses</option></select></div>
+<div><label>Área</label><select id="f_a"></select></div>
+<div><label>Veículo</label><select id="f_p"></select></div>
+<div><label>Status</label><select id="f_s"><option value="">Todos</option><option>LIBERADO</option><option>COM PENDÊNCIAS</option><option>BLOQUEADO</option><option>SEM ACESSO À MINA</option></select></div>
+</div><div class="chips" id="chips"></div></div>
+<div class="tabs"><button id="pt1" class="on">Indicadores</button><button id="pt2">Tabela</button></div>
+<div id="pg1"><div id="pk"></div><div class="cg">
+<div class="card"><b>Inspeções por dia</b><div class="leg">Toque numa barra para ver as inspeções do dia</div><div class="cw"><canvas id="c1"></canvas></div></div>
+<div class="card"><b>Status no período</b><div class="leg">Toque numa fatia para filtrar</div><div class="cw"><canvas id="c2"></canvas></div></div>
+<div class="card"><b>Itens mais reprovados</b><div class="leg">Toque numa barra para ver as inspeções com o item</div><div class="cw"><canvas id="c3"></canvas></div></div>
+<div class="card"><b>Veículos com mais reprovações</b><div class="leg">Toque numa barra para filtrar o veículo</div><div class="cw"><canvas id="c4"></canvas></div></div>
+<div class="card hide" id="ckm"><b>Evolução do KM</b><div class="cw"><canvas id="c5"></canvas></div></div></div></div>
+<div id="pg2" class="hide"><div class="card"><div class="act"><input id="f_q" placeholder="Buscar placa ou veículo" style="flex:1;min-width:160px"><button class="btn" id="csv">Exportar CSV</button></div><div class="tbw" id="tw"></div></div></div>
+</section>
 <section id="gate" class="hide"><div class="card"><b id="gm">Escaneie o QR code do veículo para iniciar o checklist.</b><div id="demol" class="leg"></div></div></section>
 <section id="rc" class="hide"><div class="card"><div id="rcb" class="bn"></div><p>Código da inspeção: <b id="rcc"></b></p><div class="act"><button class="pri" id="dl">Baixar PDF</button><button id="bk">Concluir</button></div></div></section>
 <section id="v1">
@@ -175,27 +197,91 @@ $("#save").onclick=async()=>{
   b.disabled=false;LASTP=p;showRc(st,p,off);
 };
 addEventListener("online",flush);
-async function painel(d){
-  $("#v1").classList.add("hide");$("#gate").classList.add("hide");$("#pn").classList.remove("hide");
-  let r;try{r=await rpc("painel",{p_token:PT,p_dias:d});if(!r)throw 0}catch(e){$("#pb").innerHTML='<div class="card err">Acesso negado ou sem conexão.</div>';return}
-  const pc=(a,b)=>b?Math.round(100*a/b)+"%":"–",sh=r.status_hoje||{},ps=r.periodo_status||{},dt=x=>x?x.split("-").reverse().join("/"):"–",mx=Math.max(1,...r.por_dia.map(x=>x.total));
-  const tb=(h,rows)=>`<table class="tb"><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${rows.length?rows.map(c=>`<tr>${c.map(x=>`<td>${x}</td>`).join("")}</tr>`).join(""):`<tr><td colspan="${h.length}" class="leg">Sem dados no período.</td></tr>`}</table>`;
-  $("#pb").innerHTML=`<div class="card"><b>Hoje · ${dt(r.hoje)}</b><div class="kpis">
-  <div class="kpi"><b>${r.inspecionados_hoje}/${r.frota}</b>veículos inspecionados (${pc(r.inspecionados_hoje,r.frota)})</div>
-  <div class="kpi"><b style="color:var(--NC)">${(sh.BLOQUEADO||0)+(sh["SEM ACESSO À MINA"]||0)}</b>bloqueados</div>
-  <div class="kpi"><b style="color:var(--PR)">${sh["COM PENDÊNCIAS"]||0}</b>com pendências</div>
-  <div class="kpi"><b style="color:var(--C)">${sh.LIBERADO||0}</b>liberados</div></div>
-  ${r.sem_inspecao_hoje.length?`<p class="leg">Sem inspeção hoje: ${r.sem_inspecao_hoje.map(v=>esc(v.placa)).join(", ")}</p>`:""}</div>
-  <div class="card"><b>Últimos ${r.dias} dias</b><div class="kpis"><div class="kpi"><b>${r.periodo_total}</b>inspeções</div><div class="kpi"><b>${pc(ps.LIBERADO||0,r.periodo_total)}</b>liberadas sem pendência</div></div>
-  <div class="bar">${r.por_dia.map(x=>`<i style="height:${Math.round(100*x.total/mx)}%" title="${dt(x.data)}: ${x.total}"></i>`).join("")}</div><div class="leg">Inspeções por dia</div></div>
-  <div class="card"><b>Itens mais reprovados</b>${tb(["Item","NC","PR"],r.top_itens.map(x=>[x.item_num+". "+esc(x.item_texto),x.nc,x.pr]))}</div>
-  <div class="card"><b>Veículos com mais itens reprovados</b>${tb(["Placa","NC","PR"],r.top_veiculos.map(x=>[esc(x.placa),x.nc,x.pr]))}</div>
-  <div class="card"><b>Situação da frota</b>${tb(["Placa","Última","KM","Status"],r.frota_situacao.map(x=>[esc(x.placa)+"<br><span class='leg'>"+esc(x.veiculo)+"</span>",x.data?dt(x.data)+" · T"+x.turno:"sem registro",x.km??"–",x.status?`<span class="pill" style="background:${COL[x.status]||"var(--NA)"}">${esc(x.status)}</span>`:"–"]))}</div>`;
+async function painel(){
+  $("#v1").classList.add("hide");$("#gate").classList.add("hide");$("#pn").classList.remove("hide");document.body.classList.add("wide");
+  try{PD=await rpc("painel_dados",{p_token:PT});if(!PD)throw 0}catch(e){$("#pn").innerHTML='<div class="card err">Acesso negado ou sem conexão.</div>';return}
+  const U=a=>[...new Set(a)].filter(Boolean).sort();
+  $("#f_a").innerHTML='<option value="">Todas as áreas</option>'+U(PD.frota.map(v=>v.area)).map(a=>`<option>${esc(a)}</option>`).join("");
+  $("#f_p").innerHTML='<option value="">Todos os veículos</option>'+PD.frota.map(v=>`<option value="${esc(v.placa)}">${esc(v.placa)} · ${esc(v.veiculo)}</option>`).join("");
+  render();
 }
-$("#pn").addEventListener("click",e=>{const b=e.target.closest("button[data-d]");if(b)painel(+b.dataset.d)});
+let PD=null,F={d:30,a:"",p:"",s:"",item:0,dia:"",q:""},CH={},SO={k:"data",d:-1},LIM=50,TR=[],OPEN=new Set();
+const ST=["LIBERADO","COM PENDÊNCIAS","SEM ACESSO À MINA","BLOQUEADO"];
+const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const dt=x=>x?x.split("-").reverse().join("/"):"–";
+const cnt=(r,k)=>r.itens.filter(i=>i.r===k).length;
+function base(){const c=new Date(PD.hoje+"T12:00:00");c.setDate(c.getDate()-F.d+1);const cc=c.toISOString().slice(0,10);
+  return PD.insp.filter(i=>i.data>=cc&&(!F.a||i.area===F.a)&&(!F.p||i.placa===F.p))}
+function rows(){let r=base();
+  if(F.s)r=r.filter(i=>i.status===F.s);if(F.dia)r=r.filter(i=>i.data===F.dia);if(F.item)r=r.filter(i=>i.itens.some(x=>x.n===F.item));
+  if(F.q){const q=F.q.toLowerCase();r=r.filter(i=>(i.placa+" "+i.veiculo).toLowerCase().includes(q))}return r}
+function render(){
+  $("#f_d").value=F.d;$("#f_a").value=F.a;$("#f_p").value=F.p;$("#f_s").value=F.s;$("#f_q").value=F.q;
+  const ch=[];if(F.item)ch.push(`<span class="chip" data-x="item">Item ${F.item}. ${esc(I[F.item-1][0])} ✕</span>`);if(F.dia)ch.push(`<span class="chip" data-x="dia">Dia ${dt(F.dia)} ✕</span>`);
+  $("#chips").innerHTML=ch.join("");
+  if($("#pg1").classList.contains("hide"))table();else{kpis();charts()}
+}
+function kpis(){
+  const b=base(),hj=PD.hoje,fr=PD.frota.filter(v=>(!F.a||v.area===F.a)&&(!F.p||v.placa===F.p));
+  const u={};PD.insp.filter(i=>i.data===hj).forEach(i=>{if(!u[i.placa])u[i.placa]=i});
+  const hv=fr.filter(v=>u[v.placa]),sem=fr.filter(v=>!u[v.placa]),n=s=>hv.filter(v=>u[v.placa].status===s).length;
+  const nc=b.reduce((a,i)=>a+cnt(i,"NC"),0),pr=b.reduce((a,i)=>a+cnt(i,"PR"),0),lib=b.filter(i=>i.status==="LIBERADO").length;
+  const k=(s,v,l,c)=>`<div class="kpi cl" data-s="${s}"><b${c?` style="color:var(${c})"`:""}>${v}</b>${l}</div>`;
+  $("#pk").innerHTML=`<div class="card"><b>Hoje · ${dt(hj)}</b><div class="kpis">`+
+   k("",hv.length+"/"+fr.length,"veículos inspecionados ("+(fr.length?Math.round(100*hv.length/fr.length):0)+"%)")+k("LIBERADO",n("LIBERADO"),"liberados","--C")+k("COM PENDÊNCIAS",n("COM PENDÊNCIAS"),"com pendências","--PR")+k("BLOQUEADO",n("BLOQUEADO"),"bloqueados","--NC")+k("SEM ACESSO À MINA",n("SEM ACESSO À MINA"),"sem acesso à mina","--NC")+
+   `</div>${sem.length?`<p class="leg">Sem inspeção hoje: ${sem.map(v=>esc(v.placa)).join(", ")}</p>`:""}</div>
+   <div class="card"><b>Período selecionado</b><div class="kpis"><div class="kpi"><b>${b.length}</b>inspeções</div><div class="kpi"><b>${b.length?Math.round(100*lib/b.length):0}%</b>liberadas sem pendência</div><div class="kpi"><b>${nc}</b>itens NC</div><div class="kpi"><b>${pr}</b>itens PR</div></div></div>`;
+}
+function charts(){
+  const b=base(),tx=cv("--tx"),mu=cv("--mu"),bd=cv("--bd");
+  const sc={LIBERADO:cv("--C"),"COM PENDÊNCIAS":cv("--PR"),"SEM ACESSO À MINA":"#b3141a",BLOQUEADO:cv("--NC")};
+  Chart.defaults.color=mu;Chart.defaults.font.family="system-ui,sans-serif";
+  const ax=()=>({ticks:{color:mu,precision:0},grid:{color:bd},beginAtZero:true});
+  const op=x=>({responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:tx,boxWidth:12}}},...x});
+  const mk=(id,cfg)=>{if(CH[id])CH[id].destroy();CH[id]=new Chart($("#"+id),cfg)};
+  const go=()=>{tabp(2)};
+  const days=[...new Set(b.map(i=>i.data))].sort();
+  mk("c1",{type:"bar",data:{labels:days.map(d=>dt(d).slice(0,5)),datasets:ST.map(s=>({label:s,backgroundColor:sc[s],maxBarThickness:48,borderRadius:4,data:days.map(d=>b.filter(i=>i.data===d&&i.status===s).length)}))},
+    options:op({scales:{x:{stacked:true,ticks:{color:mu},grid:{display:false}},y:{stacked:true,...ax()}},onClick:(e,a)=>{if(a.length){F.dia=days[a[0].index];go()}}})});
+  mk("c2",{type:"doughnut",data:{labels:ST,datasets:[{data:ST.map(s=>b.filter(i=>i.status===s).length),backgroundColor:ST.map(s=>sc[s]),borderColor:cv("--card"),borderWidth:2}]},
+    options:op({cutout:"62%",onClick:(e,a)=>{if(a.length){F.s=ST[a[0].index];go()}}})});
+  const m={},v={};
+  b.forEach(i=>i.itens.forEach(x=>{(m[x.n]=m[x.n]||{n:x.n,t:x.t,NC:0,PR:0})[x.r]++;(v[i.placa]=v[i.placa]||{p:i.placa,NC:0,PR:0})[x.r]++}));
+  const srt=o=>Object.values(o).sort((a,c)=>c.NC+c.PR-a.NC-a.PR).slice(0,8);
+  const hb=(l,rows,key,fn)=>({type:"bar",data:{labels:rows.map(l),datasets:[{label:"NC",backgroundColor:sc.BLOQUEADO,data:rows.map(x=>x.NC),borderRadius:4,maxBarThickness:26},{label:"PR",backgroundColor:sc["COM PENDÊNCIAS"],data:rows.map(x=>x.PR),borderRadius:4,maxBarThickness:26}]},
+    options:op({indexAxis:"y",scales:{x:{stacked:true,...ax()},y:{stacked:true,ticks:{color:tx},grid:{display:false}}},onClick:(e,a)=>{if(a.length){fn(rows[a[0].index]);go()}}})});
+  mk("c3",hb(x=>x.n+". "+x.t.slice(0,26),srt(m),"n",x=>{F.item=x.n}));
+  mk("c4",hb(x=>x.p,srt(v),"p",x=>{F.p=x.p}));
+  const kr=F.p?b.filter(i=>i.km!=null).sort((a,c)=>(a.data+a.turno)<(c.data+c.turno)?-1:1):[];
+  $("#ckm").classList.toggle("hide",!kr.length);
+  if(kr.length)mk("c5",{type:"line",data:{labels:kr.map(i=>dt(i.data).slice(0,5)+" T"+i.turno),datasets:[{label:"KM",data:kr.map(i=>i.km),borderColor:sc.LIBERADO,backgroundColor:sc.LIBERADO,tension:.25,pointRadius:4}]},options:op({scales:{x:{ticks:{color:mu},grid:{display:false}},y:{ticks:{color:mu},grid:{color:bd}}}})});
+}
+function table(){
+  const k=SO.k;TR=rows().map(i=>({...i,nc:cnt(i,"NC"),pr:cnt(i,"PR")}));
+  TR.sort((a,c)=>{const x=k==="data"?a.data+a.turno:a[k],y=k==="data"?c.data+c.turno:c[k];return(x>y?1:x<y?-1:0)*SO.d});
+  const H=[["data","Data"],["turno","T"],["placa","Placa"],["veiculo","Veículo"],["area","Área"],["km","KM"],["status","Status"],["nc","NC"],["pr","PR"]];
+  $("#tw").innerHTML=`<table class="tb"><tr>${H.map(h=>`<th class="so" data-k="${h[0]}">${h[1]}${k===h[0]?(SO.d>0?" ▲":" ▼"):""}</th>`).join("")}</tr>`+
+   TR.slice(0,LIM).map(i=>{const key=i.data+"|"+i.turno+"|"+i.placa;
+    return `<tr class="rw" data-o="${key}"><td>${dt(i.data)}</td><td>${i.turno}</td><td>${esc(i.placa)}</td><td>${esc(i.veiculo)}</td><td>${esc(i.area)}</td><td>${i.km??"–"}</td><td><span class="pill" style="background:${COL[i.status]||"var(--NA)"}">${esc(i.status)}</span></td><td>${i.nc}</td><td>${i.pr}</td></tr>`+
+    (OPEN.has(key)?`<tr class="dt"><td colspan="9">${i.itens.length?i.itens.map(x=>`${x.n}. ${esc(x.t)} <b style="color:var(--${x.r})">${x.r}</b>`).join("<br>"):"Nenhum item reprovado."}</td></tr>`:"")}).join("")+`</table>`+
+   (TR.length>LIM?`<p><button class="btn" id="more">Mostrar mais (${TR.length-LIM})</button></p>`:"")+`<div class="leg">${TR.length} inspeções · toque numa linha para ver os itens reprovados</div>`;
+}
+function tabp(n){$("#pg1").classList.toggle("hide",n!==1);$("#pg2").classList.toggle("hide",n!==2);$("#pt1").classList.toggle("on",n===1);$("#pt2").classList.toggle("on",n===2);LIM=50;render()}
+$("#pt1").onclick=()=>tabp(1);$("#pt2").onclick=()=>tabp(2);
+["f_d","f_a","f_p","f_s"].forEach(id=>$("#"+id).onchange=()=>{F.d=+$("#f_d").value;F.a=$("#f_a").value;F.p=$("#f_p").value;F.s=$("#f_s").value;LIM=50;render()});
+$("#f_q").oninput=e=>{F.q=e.target.value;LIM=50;table()};
+$("#chips").onclick=e=>{const c=e.target.closest("[data-x]");if(!c)return;if(c.dataset.x==="item")F.item=0;else F.dia="";render()};
+$("#pk").onclick=e=>{const c=e.target.closest(".kpi.cl");if(!c)return;F.dia=PD.hoje;F.s=c.dataset.s;tabp(2)};
+$("#tw").onclick=e=>{const h=e.target.closest("th[data-k]"),r=e.target.closest("tr[data-o]");
+  if(h){SO={k:h.dataset.k,d:SO.k===h.dataset.k?-SO.d:1};table()}
+  else if(r){const k=r.dataset.o;OPEN.has(k)?OPEN.delete(k):OPEN.add(k);table()}
+  else if(e.target.id==="more"){LIM+=50;table()}};
+$("#csv").onclick=()=>{const q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
+  const L=[["Data","Turno","Placa","Veículo","Área","KM","Status","NC","PR","Itens reprovados"].map(q).join(";")].concat(TR.map(i=>[dt(i.data),i.turno,i.placa,i.veiculo,i.area,i.km,i.status,i.nc,i.pr,i.itens.map(x=>x.n+". "+x.t+" ("+x.r+")").join(" | ")].map(q).join(";")));
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+L.join("\n")],{type:"text/csv;charset=utf-8"}));a.download="inspecoes.csv";a.click()};
 
 async function init(){
-  if(PT){painel(30);return}
+  if(PT){painel();return}
   if(!T){$("#v1").classList.add("hide");$("#gate").classList.remove("hide");
     if(DEMO)$("#demol").innerHTML='<p>Modo demo: <a href="?t=demo1">veículo 1</a> · <a href="?t=demo2">veículo 2</a></p>';return}
   let v;try{v=await rpc("veiculo_por_token",{p_token:T});W("v"+T,v)}catch(e){v=J("v"+T,null)}
