@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="theme-color" content="#009394">
+<meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Checklist de Veículos Leves</title>
 <style>
@@ -39,6 +40,9 @@ select{min-height:40px}
 .h{display:flex;justify-content:space-between;gap:8px;align-items:flex-start;padding:8px 0;border-top:1px solid var(--bd)}
 .pill{display:inline-flex;align-items:center;justify-content:center;align-self:center;flex:none;font-size:11px;font-weight:700;letter-spacing:.2px;line-height:1;color:#fff;border-radius:999px;padding:7px 12px;white-space:nowrap;text-align:center}
 .err{color:var(--NC);font-size:13px;margin:6px 0}.hide{display:none}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin:8px 0}.kpi{background:var(--bg);border-radius:12px;padding:10px;font-size:12px;color:var(--mu)}.kpi b{display:block;font-size:24px;color:var(--tx)}
+.bar{display:flex;align-items:flex-end;gap:2px;height:90px;margin-top:8px}.bar i{flex:1;background:var(--C);border-radius:3px 3px 0 0;min-height:2px}
+.tb{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}.tb th,.tb td{padding:6px 4px;border-top:1px solid var(--bd);text-align:left;vertical-align:middle}.tb th{color:var(--mu);font-size:11px}
 .hd{border-top:1px solid var(--bd);padding:8px 0}.hd summary{display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;list-style:none}
 .ri{padding:4px 0;border-top:1px dashed var(--bd);font-size:13px}.r{float:right}.r.C{color:var(--C)}.r.NC{color:var(--NC)}.r.PR{color:var(--PR)}.r.NA{color:var(--NA)}
 @media print{#hp,.tabs,.act,.nt,#msg{display:none!important}.seg button:not(.on){visibility:hidden}body{background:#fff;color:#000}}
@@ -50,6 +54,7 @@ select{min-height:40px}
 <header class="top"><img class="logo" alt="ERO"><div><h1>Checklist de Veículos de Transporte e Utilitários</h1>
 <div class="sub">RG-EROT-SSO-004 · RV 00 <span id="mode"></span> <b id="q"></b></div></div></header>
 
+<section id="pn" class="hide"><div class="card"><div class="act"><button class="btn" data-d="7">7 dias</button><button class="btn" data-d="30">30 dias</button><button class="btn" data-d="90">90 dias</button></div></div><div id="pb"></div></section>
 <section id="gate" class="hide"><div class="card"><b id="gm">Escaneie o QR code do veículo para iniciar o checklist.</b><div id="demol" class="leg"></div></div></section>
 <section id="rc" class="hide"><div class="card"><div id="rcb" class="bn"></div><p>Código da inspeção: <b id="rcc"></b></p><div class="act"><button class="pri" id="dl">Baixar PDF</button><button id="bk">Concluir</button></div></div></section>
 <section id="v1">
@@ -91,7 +96,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;");
 const J=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k));return v==null?d:v}catch(e){return d}};
 const W=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
-let A={},HX=[],LASTP=null,NM=false,VH={};const T=new URLSearchParams(location.search).get("t")||"";
+let A={},HX=[],LASTP=null,NM=false,VH={};const T=new URLSearchParams(location.search).get("t")||"",PT=new URLSearchParams(location.search).get("painel")||"";
 
 // ----- camada de comunicação (única parte que fala com o Supabase) -----
 async function rpc(fn,args){
@@ -151,7 +156,7 @@ async function flush(){
   for(const p of q){try{await rpc("salvar_inspecao",{p})}catch(e){rest.push(p)}}
   W("fila",rest);$("#q").textContent=rest.length?"· "+rest.length+" aguardando envio":"";return q.length-rest.length;
 }
-function reset(){A={};if(NM){A[8]={s:"NA"};A[9]={s:"NA"}}["km","mat","nome","obs"].forEach(f=>$("#"+f).value="");$("#turno").value="1";$("#data").value=new Date().toISOString().slice(0,10);draw()}
+function reset(){A={};if(NM){A[8]={s:"NA"};A[9]={s:"NA"}}["km","mat","nome","obs"].forEach(f=>$("#"+f).value="");$("#turno").value="1";$("#data").value=new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,10);draw()}
 $("#allc").onclick=()=>{I.forEach((it,i)=>{if(!A[i]||!A[i].s)A[i]={s:"C"}});draw()};
 $("#prt").onclick=()=>window.print();
 $("#save").onclick=async()=>{
@@ -170,7 +175,27 @@ $("#save").onclick=async()=>{
   b.disabled=false;LASTP=p;showRc(st,p,off);
 };
 addEventListener("online",flush);
+async function painel(d){
+  $("#v1").classList.add("hide");$("#gate").classList.add("hide");$("#pn").classList.remove("hide");
+  let r;try{r=await rpc("painel",{p_token:PT,p_dias:d});if(!r)throw 0}catch(e){$("#pb").innerHTML='<div class="card err">Acesso negado ou sem conexão.</div>';return}
+  const pc=(a,b)=>b?Math.round(100*a/b)+"%":"–",sh=r.status_hoje||{},ps=r.periodo_status||{},dt=x=>x?x.split("-").reverse().join("/"):"–",mx=Math.max(1,...r.por_dia.map(x=>x.total));
+  const tb=(h,rows)=>`<table class="tb"><tr>${h.map(x=>`<th>${x}</th>`).join("")}</tr>${rows.length?rows.map(c=>`<tr>${c.map(x=>`<td>${x}</td>`).join("")}</tr>`).join(""):`<tr><td colspan="${h.length}" class="leg">Sem dados no período.</td></tr>`}</table>`;
+  $("#pb").innerHTML=`<div class="card"><b>Hoje · ${dt(r.hoje)}</b><div class="kpis">
+  <div class="kpi"><b>${r.inspecionados_hoje}/${r.frota}</b>veículos inspecionados (${pc(r.inspecionados_hoje,r.frota)})</div>
+  <div class="kpi"><b style="color:var(--NC)">${(sh.BLOQUEADO||0)+(sh["SEM ACESSO À MINA"]||0)}</b>bloqueados</div>
+  <div class="kpi"><b style="color:var(--PR)">${sh["COM PENDÊNCIAS"]||0}</b>com pendências</div>
+  <div class="kpi"><b style="color:var(--C)">${sh.LIBERADO||0}</b>liberados</div></div>
+  ${r.sem_inspecao_hoje.length?`<p class="leg">Sem inspeção hoje: ${r.sem_inspecao_hoje.map(v=>esc(v.placa)).join(", ")}</p>`:""}</div>
+  <div class="card"><b>Últimos ${r.dias} dias</b><div class="kpis"><div class="kpi"><b>${r.periodo_total}</b>inspeções</div><div class="kpi"><b>${pc(ps.LIBERADO||0,r.periodo_total)}</b>liberadas sem pendência</div></div>
+  <div class="bar">${r.por_dia.map(x=>`<i style="height:${Math.round(100*x.total/mx)}%" title="${dt(x.data)}: ${x.total}"></i>`).join("")}</div><div class="leg">Inspeções por dia</div></div>
+  <div class="card"><b>Itens mais reprovados</b>${tb(["Item","NC","PR"],r.top_itens.map(x=>[x.item_num+". "+esc(x.item_texto),x.nc,x.pr]))}</div>
+  <div class="card"><b>Veículos com mais itens reprovados</b>${tb(["Placa","NC","PR"],r.top_veiculos.map(x=>[esc(x.placa),x.nc,x.pr]))}</div>
+  <div class="card"><b>Situação da frota</b>${tb(["Placa","Última","KM","Status"],r.frota_situacao.map(x=>[esc(x.placa)+"<br><span class='leg'>"+esc(x.veiculo)+"</span>",x.data?dt(x.data)+" · T"+x.turno:"sem registro",x.km??"–",x.status?`<span class="pill" style="background:${COL[x.status]||"var(--NA)"}">${esc(x.status)}</span>`:"–"]))}</div>`;
+}
+$("#pn").addEventListener("click",e=>{const b=e.target.closest("button[data-d]");if(b)painel(+b.dataset.d)});
+
 async function init(){
+  if(PT){painel(30);return}
   if(!T){$("#v1").classList.add("hide");$("#gate").classList.remove("hide");
     if(DEMO)$("#demol").innerHTML='<p>Modo demo: <a href="?t=demo1">veículo 1</a> · <a href="?t=demo2">veículo 2</a></p>';return}
   let v;try{v=await rpc("veiculo_por_token",{p_token:T});W("v"+T,v)}catch(e){v=J("v"+T,null)}
