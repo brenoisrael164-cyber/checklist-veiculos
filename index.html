@@ -52,9 +52,78 @@ body.wide main{max-width:1100px}
 .hd{border-top:1px solid var(--bd);padding:8px 0}.hd summary{display:flex;justify-content:space-between;align-items:center;gap:8px;cursor:pointer;list-style:none}
 .ri{padding:4px 0;border-top:1px dashed var(--bd);font-size:13px}.r{float:right}.r.C{color:var(--C)}.r.NC{color:var(--NC)}.r.PR{color:var(--PR)}.r.NA{color:var(--NA)}
 @media print{#hp,.tabs,.act,.nt,#msg{display:none!important}.seg button:not(.on){visibility:hidden}body{background:#fff;color:#000}}
+
+/* ===== Painel (?painel=) — visual da apresentação de performance ERO ===== */
+body.pnl{background:#F3F4F4;color:#5C5D54;font-family:'Nunito','Segoe UI',Arial,sans-serif;font-size:14px}
+body.pnl main{max-width:none;padding:0}
+body.pnl header.top{display:none}
+#pn{--teal:#008080;--tdk:#004A4A;--tpl:#D3EBEB;--ink:#5C5D54;--ink2:#6D6E71;--trk:#E2E2E2;--wine:#7C2F48;--gold:#D9A441;--org:#A9480C}
+#pn .pband{height:10px;background:var(--teal);border-radius:0 0 8px 8px;margin:0 28px}
+#pn .pg{max-width:1360px;margin:0 auto;padding:0 28px 28px}
+#pn .phead{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding:22px 0 14px}
+#pn h2{margin:0;font-size:30px;font-weight:800;color:var(--ink);letter-spacing:-.3px}#pn h2 .sep{color:var(--ink2);font-weight:700}
+#pn .psub{margin:4px 0 0;color:var(--teal);font-style:italic;font-weight:600;font-size:15px}
+#pn .selo{background:var(--tdk);color:#fff;border-radius:6px;display:flex;align-items:center;gap:10px;padding:8px 16px;white-space:nowrap}
+#pn .selo b{font-size:28px;font-weight:800}#pn .selo span{font-size:12px;font-weight:700;line-height:1.2}
+#pn .pfl{display:grid;grid-template-columns:repeat(4,minmax(130px,1fr)) auto;gap:10px;align-items:end;background:#fff;border:1px solid var(--trk);border-radius:10px;padding:10px 14px;margin-bottom:10px}
+#pn .pfl label{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+#pn .pfl select,#pn .ptools input{background:#fff;color:var(--ink);border:1px solid #cfd4d4;border-radius:6px;font:inherit;padding:8px;min-height:38px;width:100%}
+#pn .ptabs{display:flex;gap:6px}#pn .ptabs button{padding:9px 14px;border:1px solid var(--trk);background:#fff;color:var(--ink);border-radius:6px;font:inherit;font-weight:800;cursor:pointer}
+#pn .ptabs button.on{background:var(--teal);color:#fff;border-color:var(--teal)}
+#pn .pchips{display:flex;flex-wrap:wrap;gap:6px}#pn .pchips:not(:empty){margin-bottom:10px}
+#pn .pchip{background:var(--tpl);color:var(--tdk);border:0;border-radius:999px;padding:5px 12px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer}
+#pn .pload{font-size:12.5px;color:var(--ink2);min-height:0}#pn .pload:not(:empty){margin:0 0 10px}#pn .pload.err{color:var(--wine);font-weight:700}
+#pn .pkpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:16px}
+#pn .pkpi{background:#fff;border:1px solid var(--trk);border-radius:10px;padding:12px 16px}
+#pn .pkpi .l{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+#pn .pkpi .v{font-size:32px;font-weight:800;line-height:1.1;margin-top:4px;color:var(--teal);font-variant-numeric:tabular-nums}
+#pn .pkpi .v small{font-size:18px;color:var(--ink2);font-weight:700}#pn .pkpi .c{font-size:12.5px;color:var(--ink)}
+#pn .pkpi.pend .v{color:#9a6d12}#pn .pkpi.mina .v{color:var(--org)}#pn .pkpi.bloq .v{color:var(--wine)}
+#pn .pgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;margin-bottom:16px}
+#pn .s12{grid-column:span 12}#pn .s4{grid-column:span 4}
+#pn .pcard{background:#fff;border:1px solid var(--trk);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+#pn .pcard .hd{background:var(--teal);color:#fff;font-weight:800;font-size:14.5px;padding:8px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+#pn .pcard .hd.dark{background:var(--tdk)}#pn .pcard .hd small{font-weight:600;font-size:12px;opacity:.9}
+#pn .pcard .bd{padding:12px 14px 14px;flex:1;min-width:0}
+#pn .trio{display:flex;justify-content:space-around;text-align:center;padding:4px 0 10px;border-bottom:1px solid var(--trk);margin-bottom:10px}
+#pn .trio b{display:block;font-size:24px;font-weight:800;color:var(--teal);font-variant-numeric:tabular-nums}#pn .trio span{font-size:12px}
+#pn .prows{display:grid;grid-template-columns:minmax(110px,auto) 1fr auto;gap:7px 10px;align-items:center}
+#pn .prows .lb{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+#pn .prows .tr{height:10px;background:var(--trk);border-radius:2px;display:flex;overflow:hidden;cursor:pointer}#pn .prows .tr i{display:block;height:100%}
+#pn .prows .vl{white-space:nowrap;font-weight:800;font-size:12.5px;text-align:right;font-variant-numeric:tabular-nums}#pn .prows .vl em{font-style:normal;font-weight:700;color:var(--ink2)}
+#pn .plg{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;margin:0 0 8px}#pn .plg span{display:inline-flex;align-items:center;gap:6px}#pn .plg i{width:11px;height:11px;border-radius:2px;display:inline-block}
+#pn .destaque{background:var(--tpl);border-radius:6px;display:flex;align-items:center;gap:12px;padding:8px 12px;margin-top:12px}
+#pn .destaque:empty{display:none}#pn .destaque b{font-size:26px;font-weight:800;color:var(--teal);white-space:nowrap}#pn .destaque span{font-size:12.5px;font-weight:700}
+#pn .pact .it{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:7px 0;border-bottom:1px solid var(--trk)}#pn .pact .it:last-child{border-bottom:0}
+#pn .chp{font-size:10.5px;font-weight:800;color:#fff;border-radius:999px;padding:3px 9px;white-space:nowrap}
+#pn .chp.bloq{background:var(--wine)}#pn .chp.mina{background:var(--org)}#pn .chp.sem{background:var(--trk);color:var(--ink)}
+#pn .pact .pl{font-weight:800;font-size:13px}#pn .pact .ds{font-size:12px;color:var(--ink2)}
+#pn .pact .dy{font-weight:800;font-size:12.5px;text-align:right;white-space:nowrap}#pn .pact .dy.warn{color:var(--org)}
+#pn .pmore{background:none;border:0;padding:0;font:inherit;font-size:12px;color:var(--teal);font-weight:800;margin-top:6px;cursor:pointer}#pn .pmore:empty{display:none}
+#pn .pempty{font-size:13px;color:var(--ink2);padding:6px 0}
+#pn .chartwrap{position:relative;overflow-x:auto}#pn svg text{font-family:'Nunito','Segoe UI',Arial,sans-serif}
+#pn .hit{cursor:pointer}#pn .hit:focus{outline:2px solid var(--tdk);outline-offset:-2px}
+#pn .ptip{position:absolute;pointer-events:none;background:var(--tdk);color:#fff;border-radius:6px;padding:8px 10px;font-size:12px;line-height:1.45;display:none;white-space:nowrap;z-index:5;box-shadow:0 4px 14px rgba(0,0,0,.15)}#pn .ptip b{font-size:15px}
+#pn .pleg{font-size:12px;color:var(--ink2);margin-top:6px}
+#pn .ptw{overflow-x:auto}
+#pn .ptb{width:100%;border-collapse:separate;border-spacing:0 3px;font-size:12.5px}
+#pn .ptb th{background:var(--teal);color:#fff;font-weight:800;text-align:left;padding:7px 10px;white-space:nowrap}
+#pn .ptb th:first-child{border-radius:4px 0 0 4px}#pn .ptb th:last-child{border-radius:0 4px 4px 0}#pn .ptb th.so{cursor:pointer}
+#pn .ptb td{background:#F5F6F6;padding:6px 10px;font-variant-numeric:tabular-nums;vertical-align:top}#pn .ptb .nr{text-align:right}
+#pn .hide{display:none!important}
+#pn .ptb tr.rw{cursor:pointer}#pn .ptb tr.rw:hover td{background:#E9F3F3}#pn .ptb tr.dt td{background:#fff;border:1px solid var(--trk);line-height:1.7}
+#pn .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+#pn .ptools{display:flex;gap:8px;margin-bottom:8px}#pn .ptools input{flex:1}
+#pn .pbtn{padding:8px 14px;border:1px solid var(--teal);background:var(--teal);color:#fff;border-radius:6px;font:inherit;font-weight:800;cursor:pointer;white-space:nowrap}
+#pn .pbtn.sec{background:#fff;color:var(--teal)}
+#pn .resumo{display:grid;grid-template-columns:150px 1fr 1fr 1fr;background:#fff;border:1px solid var(--trk);border-radius:10px;overflow:hidden;margin-bottom:12px}
+#pn .resumo .bl{background:var(--ink);color:#fff;font-weight:800;font-size:17px;display:flex;align-items:center;justify-content:center;letter-spacing:.04em}
+#pn .resumo p{margin:0;padding:12px 16px;font-size:13px;line-height:1.45;border-left:1px solid var(--trk)}#pn .resumo p b{color:var(--teal)}
+#pn .pfoot{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:11.5px;color:var(--ink2);line-height:1.5}#pn .pfoot img{height:22px}
+@media (max-width:1100px){#pn .pkpis{grid-template-columns:repeat(3,1fr)}#pn .s4{grid-column:span 12}#pn .resumo{grid-template-columns:1fr}#pn .resumo .bl{padding:10px}#pn .resumo p{border-left:0;border-top:1px solid var(--trk)}#pn .pfl{grid-template-columns:repeat(2,1fr)}#pn .ptabs{grid-column:1/-1}#pn .ptabs button{flex:1}}
+@media (max-width:640px){#pn .pg{padding:0 12px 20px}#pn .pband{margin:0 12px}#pn .phead{flex-direction:column;align-items:flex-start}#pn h2{font-size:23px}#pn .pkpis{grid-template-columns:repeat(2,1fr)}#pn .ptools{flex-direction:column}#pn .prows{grid-template-columns:minmax(0,1fr) 64px auto}}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 </head>
 <body>
 <main>
@@ -62,26 +131,65 @@ body.wide main{max-width:1100px}
 <div class="sub"><span id="mode"></span> <b id="q"></b></div></div></header>
 
 <section id="pn" class="hide">
-<div class="card"><div class="fl">
-<div><label>Período</label><select id="f_d"><option value="7">7 dias</option><option value="30" selected>30 dias</option><option value="90">90 dias</option><option value="365">12 meses</option></select></div>
-<div><label>Área</label><select id="f_a"></select></div>
-<div><label>Veículo</label><select id="f_p"></select></div>
-<div><label>Status</label><select id="f_s"><option value="">Todos</option><option>LIBERADO</option><option>COM PENDÊNCIAS</option><option>BLOQUEADO</option><option>SEM ACESSO À MINA</option></select></div>
-</div><div class="chips" id="chips"></div></div>
-<div class="tabs"><button id="pt1" class="on">Indicadores</button><button id="pt2">Tabela</button></div>
-<div id="pg1"><div id="pk"></div><div class="cg">
-<div class="card"><b>Inspeções por dia</b><div class="leg">Toque numa barra para ver as inspeções do dia</div><div class="cw"><canvas id="c1"></canvas></div></div>
-<div class="card"><b>Status no período</b><div class="leg">Toque numa fatia para filtrar</div><div class="cw"><canvas id="c2"></canvas></div></div>
-<div class="card"><b>Itens mais reprovados</b><div class="leg">Toque numa barra para ver as inspeções com o item</div><div class="cw"><canvas id="c3"></canvas></div></div>
-<div class="card"><b>Veículos com mais reprovações</b><div class="leg">Toque numa barra para filtrar o veículo</div><div class="cw"><canvas id="c4"></canvas></div></div>
-<div class="card hide" id="ckm"><b>Evolução do KM</b><div class="cw"><canvas id="c5"></canvas></div></div></div></div>
-<div id="pg2" class="hide"><div class="card"><div class="act"><input id="f_q" placeholder="Buscar placa ou veículo" style="flex:1;min-width:160px"><button class="btn" id="csv">Exportar CSV</button></div><div class="tbw" id="tw"></div></div></div>
+<div class="pband"></div>
+<div class="pg">
+  <div class="phead">
+    <div><h2>Checklist de Veículos <span class="sep">|</span> Painel</h2>
+      <p class="psub" id="psub">Carregando…</p></div>
+    <div class="selo"><b id="seloV">—</b><span>da frota ativa<br>inspecionada hoje</span></div>
+  </div>
+  <div class="pfl">
+    <div><label for="f_d">Período</label><select id="f_d"><option value="7">7 dias</option><option value="30" selected>30 dias</option><option value="90">90 dias</option><option value="365">12 meses</option></select></div>
+    <div><label for="f_a">Área</label><select id="f_a"></select></div>
+    <div><label for="f_p">Veículo</label><select id="f_p"></select></div>
+    <div><label for="f_s">Status</label><select id="f_s"><option value="">Todos</option><option>LIBERADO</option><option>COM PENDÊNCIAS</option><option>SEM ACESSO À MINA</option><option>BLOQUEADO</option></select></div>
+    <div class="ptabs"><button id="pt1" class="on" type="button">Indicadores</button><button id="pt2" type="button">Tabela</button></div>
+  </div>
+  <div class="pchips" id="chips"></div>
+  <div class="pload" id="pload"></div>
+
+  <div id="pg1">
+    <div class="pkpis">
+      <div class="pkpi"><div class="l">Inspecionados hoje</div><div class="v" id="k1">—</div><div class="c" id="k1c"></div></div>
+      <div class="pkpi"><div class="l">Liberados</div><div class="v" id="k2">—</div><div class="c">sem pendência</div></div>
+      <div class="pkpi pend"><div class="l">Com pendências</div><div class="v" id="k3">—</div><div class="c">programar revisão</div></div>
+      <div class="pkpi bloq"><div class="l">Bloqueados</div><div class="v" id="k4">—</div><div class="c">item impeditivo NC</div></div>
+      <div class="pkpi mina"><div class="l">Sem acesso à mina</div><div class="v" id="k5">—</div><div class="c">giroflex ou bandeirola NC</div></div>
+    </div>
+    <div class="pgrid">
+      <section class="pcard s4"><div class="hd dark">Pedem ação hoje <small id="actHd"></small></div>
+        <div class="bd"><div class="pact" id="act"></div><button class="pmore" id="actMore" type="button"></button></div></section>
+      <section class="pcard s4"><div class="hd">Itens mais reprovados <small class="per"></small></div>
+        <div class="bd"><div class="trio" id="trioItens"></div><div class="plg"><span><i style="background:#7C2F48"></i>NC</span><span><i style="background:#D9A441"></i>PR</span></div>
+        <div class="prows" id="items"></div><div class="destaque" id="dItens"></div></div></section>
+      <section class="pcard s4"><div class="hd">Veículos com mais reprovações <small class="per"></small></div>
+        <div class="bd"><div class="plg"><span><i style="background:#7C2F48"></i>NC</span><span><i style="background:#D9A441"></i>PR</span></div>
+        <div class="prows" id="veh"></div><div class="destaque" id="dVeh"></div></div></section>
+    </div>
+    <div class="pgrid"><section class="pcard s12"><div class="hd"><span id="dayTt">Inspeções por dia e status</span> <small id="dayHd"></small></div>
+      <div class="bd"><div class="plg" id="legend"></div><div class="chartwrap" id="daily"><div class="ptip" id="tip"></div></div>
+      <div class="pleg" id="dayHint"></div></div></section></div>
+    <div class="pgrid hide" id="kmc"><section class="pcard s12"><div class="hd">Evolução do KM <small id="kmHd"></small></div><div class="bd"><div class="chartwrap" id="kmw"></div></div></section></div>
+    <div class="pgrid"><section class="pcard s12"><div class="hd">Últimas inspeções <small>data e hora do salvamento</small></div>
+      <div class="bd" style="padding-top:8px"><div class="ptw"><table class="ptb" id="tbl"></table></div></div></section></div>
+    <div class="resumo"><div class="bl">RESUMO</div><p id="r1"></p><p id="r2"></p><p id="r3"></p></div>
+  </div>
+
+  <div id="pg2" class="hide">
+    <section class="pcard s12"><div class="hd">Inspeções do período <small id="tHd"></small></div>
+      <div class="bd"><div class="ptools"><input id="f_q" placeholder="Buscar tag, placa, veículo ou condutor"><button class="pbtn" id="csv" type="button">Exportar CSV</button></div>
+      <div class="ptw" id="tw"></div></div></section>
+  </div>
+
+  <div class="pfoot"><div>NC = bloquear/retirar de uso · PR = programar revisão · Bloqueado = item impeditivo (*) NC · Sem acesso à mina = item (**) NC · Só entram na frota os veículos com Status ATIVO.</div><img class="plogo" alt="ERO"></div>
+</div>
 </section>
 <section id="gate" class="hide"><div class="card"><b id="gm">Escaneie o QR code do veículo para iniciar o checklist.</b><div id="demol" class="leg"></div></div></section>
 <section id="rc" class="hide"><div class="card"><div id="rcb" class="bn"></div><p>Código da inspeção: <b id="rcc"></b></p><div class="act"><button class="pri" id="dl">Baixar PDF</button><button id="bk">Concluir</button></div></div></section>
 <section id="v1">
 <div class="card"><div class="g">
-<div class="f"><label>Placa/TAG</label><input id="placa" readonly></div>
+<div><label>Tag do veículo</label><input id="tag" readonly></div>
+<div><label>Placa</label><input id="placa" readonly></div>
 <div class="f"><label>Veículo/Equipamento</label><input id="veic" readonly></div>
 <div><label>Modelo</label><input id="modelo" readonly></div>
 <div><label>Área</label><input id="area" readonly></div>
@@ -129,7 +237,7 @@ const txt=x=>x==null?"":String(x).replace(/\.0$/,"");
 const num=x=>x==null||x===""?null:Number(x);
 function mapVeiculo(v){if(!v)return null;
   const am=v.field_6&&typeof v.field_6==="object"?v.field_6.Value:v.field_6;
-  return{placa:v.Title,veiculo:v.field_2,modelo:v.field_3,area:v.field_4,responsavel:v.field_5,acesso_mina:String(am).toLowerCase()!=="não"&&am!==false}}
+  return{placa:v.Title,tag:v.Tag||"",veiculo:v.field_2,modelo:v.field_3,area:v.field_4,responsavel:v.field_5,acesso_mina:String(am).toLowerCase()!=="não"&&am!==false}}
 function mapInspecao(h){
   const obs={};String(h.field_38||"").split(/\r?\n/).forEach(l=>{const m=l.match(/^\s*(\d+)\s*:\s*(.*)$/);if(m)obs[+m[1]]=m[2]});
   return{cid:h.Title,token:h.field_1,data:h.field_3,turno:num(h.field_4),km:num(h.field_5),status:h.field_6,nome:h.field_7,matricula:txt(h.field_8),responsavel:h.field_9,anotacoes:h.field_10||"",
@@ -152,7 +260,7 @@ const fdt=x=>{if(!x)return"–";if(/^\d{4}-\d{2}-\d{2}$/.test(x))return x.split(
 const dia=x=>{if(!x)return"";if(/^\d{4}-\d{2}-\d{2}$/.test(x))return x;const d=new Date(x);return isNaN(d)?"":new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,10)};
 const hoje=()=>dia(new Date().toISOString());
 function demo(fn,a){
-  const V={demo1:{placa:"ABC1D23",veiculo:"Pick-up",modelo:"Exemplo 4x4",area:"Mina",responsavel:"Fulano de Tal",acesso_mina:true},demo2:{placa:"XYZ9K88",veiculo:"Van",modelo:"Exemplo",area:"Administrativo",responsavel:"Beltrano da Silva",acesso_mina:false}};
+  const V={demo1:{placa:"ABC1D23",tag:"ERO 00",veiculo:"Pick-up",modelo:"Exemplo 4x4",area:"Mina",responsavel:"Fulano de Tal",acesso_mina:true},demo2:{placa:"XYZ9K88",veiculo:"Van",modelo:"Exemplo",area:"Administrativo",responsavel:"Beltrano da Silva",acesso_mina:false}};
   if(fn==="veiculo_por_token")return V[a.p_token]||null;
   if(fn==="historico_token")return J("di",[]).filter(x=>x.token===a.p_token).slice(0,5);
   if(fn==="salvar_inspecao"){const p=a.p,h=J("di",[]);h.unshift({token:p.token,cid:p.cid,data:p.data,turno:p.turno,km:p.km,status:p.status,nome:p.nome,matricula:p.matricula,responsavel:p.resp,anotacoes:p.anotacoes,itens:p.itens});W("di",h);return{ok:true}}
@@ -191,7 +299,7 @@ function hist(){
     <p><button class="btn" data-pdf="${i}">Baixar PDF</button></p></details>`).join(""):'<div class="leg">Sem inspeções anteriores.</div>')+"</div>";
 }
 $("#hp").addEventListener("click",e=>{const b=e.target.closest("button[data-pdf]");if(!b)return;const h=HX[b.dataset.pdf];
-  pdf({cid:h.cid,placa:VH.placa,veic:VH.veiculo,modelo:VH.modelo,area:VH.area,resp:h.responsavel||"",data:h.data,turno:h.turno,km:h.km??"",nome:h.nome,matricula:h.matricula,status:h.status,anotacoes:h.anotacoes||"",itens:h.itens})});
+  pdf({cid:h.cid,placa:VH.placa,tag:VH.tag||"",veic:VH.veiculo,modelo:VH.modelo,area:VH.area,resp:h.responsavel||"",data:h.data,turno:h.turno,km:h.km??"",nome:h.nome,matricula:h.matricula,status:h.status,anotacoes:h.anotacoes||"",itens:h.itens})});
 $("#turno").onchange=hist;
 
 // ----- salvar com fila offline -----
@@ -211,7 +319,7 @@ $("#save").onclick=async()=>{
   const km=+$("#km").value;if(!Number.isInteger(km)||km<0){m.textContent="Informe o KM com números inteiros.";return}
   const ult=Math.max(0,...HX.map(h=>+h.km||0));if(km<ult&&!confirm("O KM informado ("+km+") é menor que o da última inspeção ("+ult+"). Confirmar mesmo assim?"))return;
   const st=status(A).k;
-  const p={cid:(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random()),token:T,placa:$("#placa").value,veic:$("#veic").value,modelo:$("#modelo").value,area:$("#area").value,data:new Date().toISOString(),turno:+$("#turno").value,resp:$("#resp").value,km,matricula:$("#mat").value,nome:$("#nome").value,status:st,anotacoes:$("#obs").value,
+  const p={cid:(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random()),token:T,placa:$("#placa").value,tag:$("#tag").value,veic:$("#veic").value,modelo:$("#modelo").value,area:$("#area").value,data:new Date().toISOString(),turno:+$("#turno").value,resp:$("#resp").value,km,matricula:$("#mat").value,nome:$("#nome").value,status:st,anotacoes:$("#obs").value,
     itens:I.map((it,i)=>({item_num:i+1,item_texto:it[0],resultado:A[i].s,observacao:A[i].n||""}))};
   const b=$("#save");b.disabled=true;let off=false;
   try{await rpc("salvar_inspecao",{p})}
@@ -219,88 +327,199 @@ $("#save").onclick=async()=>{
   b.disabled=false;LASTP=p;showRc(st,p,off);
 };
 addEventListener("online",flush);
+// ===== PAINEL (?painel=SENHA) — lê o caso "painel" do fluxo, por período =====
+const MESES=["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"];
+const PST=["LIBERADO","COM PENDÊNCIAS","SEM ACESSO À MINA","BLOQUEADO"];
+const PCOL={LIBERADO:"#008080","COM PENDÊNCIAS":"#D9A441","SEM ACESSO À MINA":"#C25911",BLOQUEADO:"#7C2F48"};
+const PNC="#7C2F48",PPR="#D9A441";
+let PD={hoje:"",frota:[],insp:[],ini:null},VP={},F={d:30,a:"",p:"",s:"",item:0,dr:null,q:""},SO={k:"ts",d:-1},LIM=50,TR=[],OPEN=new Set(),ACTALL=false;
+const pct=(a,b)=>b?Math.round(100*a/b):0,nf=n=>Number(n||0).toLocaleString("pt-BR");
+const cap=s=>s?s.charAt(0)+s.slice(1).toLowerCase():"";
+const addD=(s,n)=>{const d=new Date(s+"T12:00:00Z");d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)};
+const utc0=s=>new Date(s+"T00:00:00-03:00").toISOString();
+const dbr=s=>s?s.split("-").reverse().join("/"):"–";
+const difD=(a,b)=>Math.round((new Date(b+"T12:00:00Z")-new Date(a+"T12:00:00Z"))/864e5);
+const nomeV=v=>v?(v.tag?v.tag+" · ":"")+v.placa:"";
+const iniP=()=>addD(PD.hoje,-(F.d-1));
+function mapPV(v){return{placa:v.Title,veiculo:v.field_2||"",modelo:v.field_3||"",area:v.field_4||"",resp:v.field_5||"",tag:v.Tag||"",st:v.Status||"ATIVO"}}
+function mapPI(h){const it=[];for(let i=0;i<I.length;i++){const r=h["field_"+(11+i)];if(r==="NC"||r==="PR")it.push({n:i+1,t:I[i][0],r})}
+  const v=VP[h.field_2]||{};
+  return{cid:h.Title,placa:h.field_2||"",tag:v.tag||"",veiculo:[v.veiculo,v.modelo].filter(Boolean).join(" "),area:v.area||"",ts:h.field_3||"",dia:dia(h.field_3),turno:num(h.field_4),km:num(h.field_5),status:h.field_6||"",nome:h.field_7||"",mat:txt(h.field_8),itens:it,nc:it.filter(x=>x.r==="NC").length,pr:it.filter(x=>x.r==="PR").length}}
+async function carregar(dias){
+  const hj=PD.hoje||hoje(),ini=addD(hj,-(dias-1));
+  if(PD.ini&&PD.ini<=ini)return;
+  const fim=PD.ini||addD(hj,1),parts=[];let a=ini;
+  while(a<fim){const b=addD(a,31)<fim?addD(a,31):fim;parts.unshift([a,b]);a=b}
+  const L=$("#pload"),vistos=new Set(PD.insp.map(i=>i.cid));let cheio=false;
+  for(let k=0;k<parts.length;k++){
+    L.className="pload";L.textContent=parts.length>1?`Carregando inspeções… ${k+1} de ${parts.length}`:"Carregando inspeções…";
+    const r=await flow({fn:"painel",Token:PT,De:utc0(parts[k][0]),Ate:utc0(parts[k][1])});
+    if(r.hoje)PD.hoje=r.hoje;
+    if(r.frota){PD.frota=r.frota.map(mapPV);VP={};PD.frota.forEach(v=>VP[v.placa]=v)}
+    if((r.insp||[]).length>=5000)cheio=true;
+    (r.insp||[]).forEach(h=>{if(!vistos.has(h.Title)){vistos.add(h.Title);PD.insp.push(mapPI(h))}});
+  }
+  PD.insp.sort((x,y)=>x.ts<y.ts?1:x.ts>y.ts?-1:0);PD.ini=ini;
+  L.className=cheio?"pload err":"pload";L.textContent=cheio?"Atenção: algum mês passou de 5000 inspeções e parte delas não foi carregada.":"";
+}
 async function painel(){
-  $("#v1").classList.add("hide");$("#gate").classList.add("hide");$("#pn").classList.remove("hide");document.body.classList.add("wide");
-  try{PD=await rpc("painel_dados",{p_token:PT});if(!PD)throw 0}catch(e){$("#pn").innerHTML='<div class="card err">Acesso negado ou sem conexão.</div>';return}
+  document.body.classList.add("pnl");
+  ["v1","gate","rc"].forEach(id=>$("#"+id).classList.add("hide"));$("#pn").classList.remove("hide");
+  const fl=document.createElement("link");fl.rel="stylesheet";fl.href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap";document.head.appendChild(fl);
+  $(".plogo").src=LOGO;document.title="Painel · Checklist de Veículos";
+  if(DEMO){$("#psub").textContent="O painel precisa do fluxo configurado (FLOW_URL).";return}
+  try{await carregar(F.d)}catch(e){$("#pg1").classList.add("hide");$("#psub").textContent="";document.querySelectorAll("#pn .pfl,#pn .selo").forEach(e=>e.classList.add("hide"));$("#pload").className="pload err";$("#pload").textContent=/negado/i.test(e.message)?"Acesso negado: confira a senha no link (?painel=…).":"Sem conexão com o servidor. Tente de novo em instantes.";return}
   const U=a=>[...new Set(a)].filter(Boolean).sort();
   $("#f_a").innerHTML='<option value="">Todas as áreas</option>'+U(PD.frota.map(v=>v.area)).map(a=>`<option>${esc(a)}</option>`).join("");
-  $("#f_p").innerHTML='<option value="">Todos os veículos</option>'+PD.frota.map(v=>`<option value="${esc(v.placa)}">${esc(v.placa)} · ${esc(v.veiculo)}</option>`).join("");
-  render();
+  $("#f_p").innerHTML='<option value="">Todos os veículos</option>'+[...PD.frota].sort((x,y)=>(x.tag||"~"+x.placa).localeCompare(y.tag||"~"+y.placa,"pt-BR",{numeric:true})).map(v=>`<option value="${esc(v.placa)}">${esc(nomeV(v))}${v.st!=="ATIVO"?" ("+esc(cap(v.st))+")":""}</option>`).join("");
+  prender();
 }
-let PD=null,F={d:30,a:"",p:"",s:"",item:0,dia:"",q:""},CH={},SO={k:"data",d:-1},LIM=50,TR=[],OPEN=new Set();
-const ST=["LIBERADO","COM PENDÊNCIAS","SEM ACESSO À MINA","BLOQUEADO"];
-const cv=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
-const dt=x=>x?x.split("-").reverse().join("/"):"–";
-const cnt=(r,k)=>r.itens.filter(i=>i.r===k).length;
-function base(){const c=new Date(PD.hoje+"T12:00:00");c.setDate(c.getDate()-F.d+1);const cc=c.toISOString().slice(0,10);
-  return PD.insp.filter(i=>i.data>=cc&&(!F.a||i.area===F.a)&&(!F.p||i.placa===F.p))}
-function rows(){let r=base();
-  if(F.s)r=r.filter(i=>i.status===F.s);if(F.dia)r=r.filter(i=>i.data===F.dia);if(F.item)r=r.filter(i=>i.itens.some(x=>x.n===F.item));
-  if(F.q){const q=F.q.toLowerCase();r=r.filter(i=>(i.placa+" "+i.veiculo).toLowerCase().includes(q))}return r}
-function render(){
+const frotaAtiva=()=>PD.frota.filter(v=>v.st==="ATIVO"&&(!F.a||v.area===F.a)&&(!F.p||v.placa===F.p));
+function base(){const ini=iniP();return PD.insp.filter(i=>i.dia>=ini&&i.dia<=PD.hoje&&(!F.a||i.area===F.a)&&(!F.p||i.placa===F.p))}
+function prows(){let r=base();
+  if(F.s)r=r.filter(i=>i.status===F.s);if(F.dr)r=r.filter(i=>i.dia>=F.dr[0]&&i.dia<=F.dr[1]);if(F.item)r=r.filter(i=>i.itens.some(x=>x.n===F.item));
+  if(F.q){const q=F.q.toLowerCase();r=r.filter(i=>[i.tag,i.placa,i.veiculo,i.nome,i.area].join(" ").toLowerCase().includes(q))}return r}
+function prender(){
   $("#f_d").value=F.d;$("#f_a").value=F.a;$("#f_p").value=F.p;$("#f_s").value=F.s;$("#f_q").value=F.q;
-  const ch=[];if(F.item)ch.push(`<span class="chip" data-x="item">Item ${F.item}. ${esc(I[F.item-1][0])} ✕</span>`);if(F.dia)ch.push(`<span class="chip" data-x="dia">Dia ${dt(F.dia)} ✕</span>`);
+  const ini=iniP();$("#psub").textContent=`Inspeções diárias da frota de veículos leves · ${ini.slice(0,4)===PD.hoje.slice(0,4)?dbr(ini).slice(0,5):dbr(ini)} a ${dbr(PD.hoje)}`;
+  document.querySelectorAll("#pn .per").forEach(e=>e.textContent=F.d===365?"12 meses":F.d+" dias");
+  const ch=[];if(F.item)ch.push(`<button class="pchip" data-x="item">Item ${F.item}. ${esc(I[F.item-1][0])} ✕</button>`);
+  if(F.dr)ch.push(`<button class="pchip" data-x="dr">${F.dr[0]===F.dr[1]?"Dia "+dbr(F.dr[0]):"Semana "+dbr(F.dr[0]).slice(0,5)+" a "+dbr(F.dr[1]).slice(0,5)} ✕</button>`);
   $("#chips").innerHTML=ch.join("");
-  if($("#pg1").classList.contains("hide"))table();else{kpis();charts()}
+  if($("#pg1").classList.contains("hide"))ptable();else{pkpis();pacao();prank();pdaily();pkm();precent();presumo()}
 }
-function kpis(){
-  const b=base(),hj=PD.hoje,fr=PD.frota.filter(v=>(!F.a||v.area===F.a)&&(!F.p||v.placa===F.p));
-  const u={};PD.insp.filter(i=>i.data===hj).forEach(i=>{if(!u[i.placa])u[i.placa]=i});
-  const hv=fr.filter(v=>u[v.placa]),sem=fr.filter(v=>!u[v.placa]),n=s=>hv.filter(v=>u[v.placa].status===s).length;
-  const nc=b.reduce((a,i)=>a+cnt(i,"NC"),0),pr=b.reduce((a,i)=>a+cnt(i,"PR"),0),lib=b.filter(i=>i.status==="LIBERADO").length;
-  const k=(s,v,l,c)=>`<div class="kpi cl" data-s="${s}"><b${c?` style="color:var(${c})"`:""}>${v}</b>${l}</div>`;
-  $("#pk").innerHTML=`<div class="card"><b>Hoje · ${dt(hj)}</b><div class="kpis">`+
-   k("",hv.length+"/"+fr.length,"veículos inspecionados ("+(fr.length?Math.round(100*hv.length/fr.length):0)+"%)")+k("LIBERADO",n("LIBERADO"),"liberados","--C")+k("COM PENDÊNCIAS",n("COM PENDÊNCIAS"),"com pendências","--PR")+k("BLOQUEADO",n("BLOQUEADO"),"bloqueados","--NC")+k("SEM ACESSO À MINA",n("SEM ACESSO À MINA"),"sem acesso à mina","--NC")+
-   `</div>${sem.length?`<p class="leg">Sem inspeção hoje: ${sem.map(v=>esc(v.placa)).join(", ")}</p>`:""}</div>
-   <div class="card"><b>Período selecionado</b><div class="kpis"><div class="kpi"><b>${b.length}</b>inspeções</div><div class="kpi"><b>${b.length?Math.round(100*lib/b.length):0}%</b>liberadas sem pendência</div><div class="kpi"><b>${nc}</b>itens NC</div><div class="kpi"><b>${pr}</b>itens PR</div></div></div>`;
+function hojeDe(){const u={};PD.insp.forEach(i=>{if(i.dia===PD.hoje&&!u[i.placa])u[i.placa]=i});return u}
+function pkpis(){
+  const fr=frotaAtiva(),u=hojeDe(),hv=fr.filter(v=>u[v.placa]),n=s=>hv.filter(v=>u[v.placa].status===s).length;
+  $("#seloV").textContent=pct(hv.length,fr.length)+"%";
+  $("#k1").innerHTML=hv.length+'<small> / '+fr.length+'</small>';$("#k1c").textContent=(fr.length-hv.length)+" sem checklist";
+  $("#k2").textContent=n("LIBERADO");$("#k3").textContent=n("COM PENDÊNCIAS");$("#k4").textContent=n("BLOQUEADO");$("#k5").textContent=n("SEM ACESSO À MINA");
 }
-function charts(){
-  const b=base(),tx=cv("--tx"),mu=cv("--mu"),bd=cv("--bd");
-  const sc={LIBERADO:cv("--C"),"COM PENDÊNCIAS":cv("--PR"),"SEM ACESSO À MINA":"#b3141a",BLOQUEADO:cv("--NC")};
-  Chart.defaults.color=mu;Chart.defaults.font.family="system-ui,sans-serif";
-  const ax=()=>({ticks:{color:mu,precision:0},grid:{color:bd},beginAtZero:true});
-  const op=x=>({responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{color:tx,boxWidth:12}}},...x});
-  const mk=(id,cfg)=>{if(CH[id])CH[id].destroy();CH[id]=new Chart($("#"+id),cfg)};
-  const go=()=>{tabp(2)};
-  const days=[...new Set(b.map(i=>i.data))].sort();
-  mk("c1",{type:"bar",data:{labels:days.map(d=>dt(d).slice(0,5)),datasets:ST.map(s=>({label:s,backgroundColor:sc[s],maxBarThickness:48,borderRadius:4,data:days.map(d=>b.filter(i=>i.data===d&&i.status===s).length)}))},
-    options:op({scales:{x:{stacked:true,ticks:{color:mu},grid:{display:false}},y:{stacked:true,...ax()}},onClick:(e,a)=>{if(a.length){F.dia=days[a[0].index];go()}}})});
-  mk("c2",{type:"doughnut",data:{labels:ST,datasets:[{data:ST.map(s=>b.filter(i=>i.status===s).length),backgroundColor:ST.map(s=>sc[s]),borderColor:cv("--card"),borderWidth:2}]},
-    options:op({cutout:"62%",onClick:(e,a)=>{if(a.length){F.s=ST[a[0].index];go()}}})});
-  const m={},v={};
-  b.forEach(i=>i.itens.forEach(x=>{(m[x.n]=m[x.n]||{n:x.n,t:x.t,NC:0,PR:0})[x.r]++;(v[i.placa]=v[i.placa]||{p:i.placa,NC:0,PR:0})[x.r]++}));
-  const srt=o=>Object.values(o).sort((a,c)=>c.NC+c.PR-a.NC-a.PR).slice(0,8);
-  const hb=(l,rows,key,fn)=>({type:"bar",data:{labels:rows.map(l),datasets:[{label:"NC",backgroundColor:sc.BLOQUEADO,data:rows.map(x=>x.NC),borderRadius:4,maxBarThickness:26},{label:"PR",backgroundColor:sc["COM PENDÊNCIAS"],data:rows.map(x=>x.PR),borderRadius:4,maxBarThickness:26}]},
-    options:op({indexAxis:"y",scales:{x:{stacked:true,...ax()},y:{stacked:true,ticks:{color:tx},grid:{display:false}}},onClick:(e,a)=>{if(a.length){fn(rows[a[0].index]);go()}}})});
-  mk("c3",hb(x=>x.n+". "+x.t.slice(0,26),srt(m),"n",x=>{F.item=x.n}));
-  mk("c4",hb(x=>x.p,srt(v),"p",x=>{F.p=x.p}));
-  const kr=F.p?b.filter(i=>i.km!=null).sort((a,c)=>(a.data+a.turno)<(c.data+c.turno)?-1:1):[];
-  $("#ckm").classList.toggle("hide",!kr.length);
-  if(kr.length)mk("c5",{type:"line",data:{labels:kr.map(i=>dt(i.data).slice(0,5)+" T"+i.turno),datasets:[{label:"KM",data:kr.map(i=>i.km),borderColor:sc.LIBERADO,backgroundColor:sc.LIBERADO,tension:.25,pointRadius:4}]},options:op({scales:{x:{ticks:{color:mu},grid:{display:false}},y:{ticks:{color:mu},grid:{color:bd}}}})});
+function acaoLista(){
+  const fr=frotaAtiva(),u=hojeDe(),ult={},out=[];PD.insp.forEach(i=>{if(!ult[i.placa])ult[i.placa]=i});
+  fr.forEach(v=>{const h=u[v.placa];
+    if(h&&(h.status==="BLOQUEADO"||h.status==="SEM ACESSO À MINA"))out.push({v,sit:h.status,txt:h.itens.filter(x=>x.r==="NC").map(x=>x.t).join(", ")});
+    else if(!h){const l=ult[v.placa];out.push({v,sit:"SEM",dias:l?difD(l.dia,PD.hoje):null,ult:l?l.dia:""})}});
+  const ord={BLOQUEADO:0,"SEM ACESSO À MINA":1,SEM:2};
+  return out.sort((a,b)=>ord[a.sit]-ord[b.sit]||(b.dias??1e9)-(a.dias??1e9));
 }
-function table(){
-  const k=SO.k;TR=rows().map(i=>({...i,nc:cnt(i,"NC"),pr:cnt(i,"PR")}));
-  TR.sort((a,c)=>{const x=k==="data"?a.data+a.turno:a[k],y=k==="data"?c.data+c.turno:c[k];return(x>y?1:x<y?-1:0)*SO.d});
-  const H=[["data","Data"],["turno","T"],["placa","Placa"],["veiculo","Veículo"],["area","Área"],["km","KM"],["status","Status"],["nc","NC"],["pr","PR"]];
-  $("#tw").innerHTML=`<table class="tb"><tr>${H.map(h=>`<th class="so" data-k="${h[0]}">${h[1]}${k===h[0]?(SO.d>0?" ▲":" ▼"):""}</th>`).join("")}</tr>`+
-   TR.slice(0,LIM).map(i=>{const key=i.data+"|"+i.turno+"|"+i.placa;
-    return `<tr class="rw" data-o="${key}"><td>${dt(i.data)}</td><td>${i.turno}</td><td>${esc(i.placa)}</td><td>${esc(i.veiculo)}</td><td>${esc(i.area)}</td><td>${i.km??"–"}</td><td><span class="pill" style="background:${COL[i.status]||"var(--NA)"}">${esc(i.status)}</span></td><td>${i.nc}</td><td>${i.pr}</td></tr>`+
-    (OPEN.has(key)?`<tr class="dt"><td colspan="9">${i.itens.length?i.itens.map(x=>`${x.n}. ${esc(x.t)} <b style="color:var(--${x.r})">${x.r}</b>`).join("<br>"):"Nenhum item reprovado."}</td></tr>`:"")}).join("")+`</table>`+
-   (TR.length>LIM?`<p><button class="btn" id="more">Mostrar mais (${TR.length-LIM})</button></p>`:"")+`<div class="leg">${TR.length} inspeções · toque numa linha para ver os itens reprovados</div>`;
+function pacao(){
+  const A=acaoLista(),lim=ACTALL?A.length:7,cls={BLOQUEADO:"bloq","SEM ACESSO À MINA":"mina",SEM:"sem"},lab={BLOQUEADO:"BLOQUEADO","SEM ACESSO À MINA":"SEM ACESSO À MINA",SEM:"SEM CHECKLIST"};
+  $("#actHd").textContent=A.length?A.length+(A.length>1?" veículos":" veículo"):"";
+  $("#act").innerHTML=A.length?A.slice(0,lim).map(r=>`<div class="it"><span class="chp ${cls[r.sit]}">${lab[r.sit]}</span>
+    <div><div class="pl">${esc(nomeV(r.v))}</div><div class="ds">${r.sit==="SEM"?esc([r.v.veiculo+" "+r.v.modelo,r.v.area].filter(s=>s.trim()).join(" · "))+(r.ult?" · último "+dbr(r.ult).slice(0,5):""):esc(r.txt)}</div></div>
+    <div class="dy ${r.sit==="SEM"&&(r.dias==null||r.dias>=3)?"warn":""}">${r.sit==="SEM"?(r.dias==null?"sem registro":r.dias===1?"1 dia":r.dias+" dias"):esc(r.v.area)}</div></div>`).join(""):'<div class="pempty">Nenhum veículo pede ação hoje.</div>';
+  $("#actMore").textContent=A.length>7?(ACTALL?"mostrar menos":`+ ${A.length-7} veículos`):"";
 }
-function tabp(n){$("#pg1").classList.toggle("hide",n!==1);$("#pg2").classList.toggle("hide",n!==2);$("#pt1").classList.toggle("on",n===1);$("#pt2").classList.toggle("on",n===2);LIM=50;render()}
-$("#pt1").onclick=()=>tabp(1);$("#pt2").onclick=()=>tabp(2);
-["f_d","f_a","f_p","f_s"].forEach(id=>$("#"+id).onchange=()=>{F.d=+$("#f_d").value;F.a=$("#f_a").value;F.p=$("#f_p").value;F.s=$("#f_s").value;LIM=50;render()});
-$("#f_q").oninput=e=>{F.q=e.target.value;LIM=50;table()};
-$("#chips").onclick=e=>{const c=e.target.closest("[data-x]");if(!c)return;if(c.dataset.x==="item")F.item=0;else F.dia="";render()};
-$("#pk").onclick=e=>{const c=e.target.closest(".kpi.cl");if(!c)return;F.dia=PD.hoje;F.s=c.dataset.s;tabp(2)};
+function barras(el,list,label,key){
+  if(!list.length){$(el).innerHTML='<div class="pempty" style="grid-column:1/-1">Nenhum item reprovado no período.</div>';return}
+  const mx=Math.max(...list.map(x=>x.NC+x.PR));
+  $(el).innerHTML=list.map(x=>`<div class="lb" data-k="${esc(x[key])}" title="${esc(label(x))}">${esc(label(x))}</div>
+    <div class="tr" data-k="${esc(x[key])}" title="NC ${x.NC} · PR ${x.PR}"><i style="width:${100*x.NC/mx}%;background:${PNC}"></i><i style="width:${100*x.PR/mx}%;background:${PPR}"></i></div>
+    <div class="vl">${x.NC+x.PR} <em>(${x.NC} NC)</em></div>`).join("");
+}
+function prank(){
+  const b=base().filter(i=>!F.s||i.status===F.s),m={},v={};let nc=0,pr=0;
+  b.forEach(i=>i.itens.forEach(x=>{(m[x.n]=m[x.n]||{n:x.n,t:x.t,NC:0,PR:0})[x.r]++;(v[i.placa]=v[i.placa]||{p:i.placa,NC:0,PR:0})[x.r]++;x.r==="NC"?nc++:pr++}));
+  const srt=o=>Object.values(o).sort((a,c)=>c.NC+c.PR-a.NC-a.PR||c.NC-a.NC);
+  const it=srt(m),ve=srt(v),tot=nc+pr;
+  $("#trioItens").innerHTML=`<div><b>${nf(tot)}</b><span>itens reprovados</span></div><div><b>${nf(nc)}</b><span>NC</span></div><div><b>${nf(pr)}</b><span>PR</span></div>`;
+  barras("#items",it.slice(0,6),x=>x.n+". "+x.t,"n");barras("#veh",ve.slice(0,8),x=>nomeV(VP[x.p]||{placa:x.p}),"p");
+  const t2=it.slice(0,2).reduce((s,x)=>s+x.NC+x.PR,0);
+  $("#dItens").innerHTML=it.length>=2?`<b>${pct(t2,tot)}%</b><span>das reprovações vêm de ${esc(it[0].t.toLowerCase())} e ${esc(it[1].t.toLowerCase())}</span>`:"";
+  $("#dVeh").innerHTML=ve.length?`<b>${ve[0].NC+ve[0].PR}</b><span>itens reprovados no ${esc(nomeV(VP[ve[0].p]||{placa:ve[0].p}))} no período, ${ve[0].NC} deles NC</span>`:"";
+  return{it,tot,t2};
+}
+function buckets(){
+  const ini=iniP(),wk=F.d>62,out=[];let d=ini;
+  if(wk){const dw=new Date(d+"T12:00:00Z").getUTCDay();d=addD(d,-((dw+6)%7))}
+  while(d<=PD.hoje){const e=wk?addD(d,6):d,dt=new Date(d+"T12:00:00Z");const a0=d<ini?ini:d;out.push({a:a0,b:e>PD.hoje?PD.hoje:e,d:+a0.slice(8),m:+a0.slice(5,7),y:+a0.slice(0,4),fds:!wk&&(dt.getUTCDay()===0||dt.getUTCDay()===6),v:[0,0,0,0]});d=addD(e,1)}
+  base().filter(i=>!F.s||i.status===F.s).forEach(i=>{const k=out.find(o=>i.dia>=o.a&&i.dia<=o.b),j=PST.indexOf(i.status);if(k&&j>=0)k.v[j]++});
+  out.forEach(o=>o.t=o.v.reduce((s,x)=>s+x,0));return{out,wk};
+}
+function pdaily(){
+  const {out:days,wk}=buckets(),wrap=$("#daily"),tot=days.reduce((s,d)=>s+d.t,0),lib=days.reduce((s,d)=>s+d.v[0],0);
+  $("#dayTt").textContent=wk?"Inspeções por semana e status":"Inspeções por dia e status";
+  $("#dayHint").textContent=wk?"Toque numa barra para ver as inspeções daquela semana na aba Tabela.":"Toque numa barra para ver as inspeções daquele dia na aba Tabela.";$("#dayHd").textContent=`${nf(tot)} inspeções · ${pct(lib,tot)}% liberadas`;
+  $("#legend").innerHTML=PST.map(s=>`<span><i style="background:${PCOL[s]}"></i>${cap(s)}</span>`).join("");
+  const W=Math.max(wrap.clientWidth,760,days.length*22),H=420,m={l:34,r:8,t:18,b:52},pw=W-m.l-m.r,ph=H-m.t-m.b,n=days.length,slot=pw/n,bw=Math.min(28,slot*.66);
+  const mx=Math.max(1,...days.map(d=>d.t)),stp=mx<=10?2:mx<=50?5:mx<=200?20:50,top=Math.ceil(mx/stp)*stp,y=v=>m.t+ph-(v/top)*ph;let g="";
+  days.forEach((d,i)=>{if(d.fds)g+=`<rect x="${m.l+i*slot}" y="${m.t}" width="${slot}" height="${ph}" fill="#F3F4F4"/>`});
+  for(let v=0;v<=top;v+=stp)g+=`<line x1="${m.l}" x2="${W-m.r}" y1="${y(v)}" y2="${y(v)}" stroke="${v?"#ECECEC":"#BDBDBD"}"/><text x="${m.l-8}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="#6D6E71">${v}</text>`;
+  days.forEach((d,i)=>{const x=m.l+i*slot+(slot-bw)/2;let acc=0;
+    d.v.forEach((v,j)=>{if(!v)return;const y1=y(acc+v),h=y(acc)-y1;
+      g+=`<rect x="${x}" y="${y1}" width="${bw}" height="${Math.max(h-.8,.8)}" fill="${PCOL[PST[j]]}" rx="1.5"${j===1?' stroke="#9A6D12" stroke-width="0.8"':""}/>`;
+      if(h>=11)g+=`<text x="${x+bw/2}" y="${y1+h/2+3.6}" text-anchor="middle" font-size="${h>=14?10.5:9.5}" font-weight="800" fill="${j===1?"#3D2E05":"#FFFFFF"}">${v}</text>`;acc+=v});
+    if(d.t)g+=`<text x="${x+bw/2}" y="${y(d.t)-5}" text-anchor="middle" font-size="10.5" font-weight="700" fill="#5C5D54">${d.t}</text>`;
+    g+=`<text x="${x+bw/2}" y="${m.t+ph+16}" text-anchor="middle" font-size="11" font-weight="${d.fds?400:700}" fill="${d.fds?"#6D6E71":"#5C5D54"}">${d.d}</text>`;
+    g+=`<rect class="hit" data-i="${i}" tabindex="0" x="${m.l+i*slot}" y="${m.t}" width="${slot}" height="${ph}" fill="transparent"><title>${wk?"Semana "+dbr(d.a).slice(0,5)+" a "+dbr(d.b).slice(0,5):dbr(d.a).slice(0,5)}: ${d.t} inspeções — ${PST.map((s,j)=>s.toLowerCase()+" "+d.v[j]).join(", ")}</title></rect>`});
+  const gr=[];days.forEach((d,i)=>{const l=gr[gr.length-1];if(l&&l.m===d.m&&l.y===d.y)l.e=i;else gr.push({m:d.m,y:d.y,s:i,e:i})});
+  gr.forEach((q,gi)=>{const x1=m.l+q.s*slot+3,x2=m.l+(q.e+1)*slot-3,yy=m.t+ph+28;
+    g+=`<line x1="${x1}" x2="${x2}" y1="${yy}" y2="${yy}" stroke="#008080" stroke-width="2"/>`;
+    const ml=x2-x1>=120?MESES[q.m-1]+" "+q.y:x2-x1>=44?MESES[q.m-1].slice(0,3)+"/"+String(q.y).slice(2):"";if(ml)g+=`<text x="${(x1+x2)/2}" y="${yy+16}" text-anchor="middle" font-size="12.5" font-weight="800" fill="#004A4A">${ml}</text>`;
+    if(gi>0)g+=`<line x1="${m.l+q.s*slot}" x2="${m.l+q.s*slot}" y1="${m.t}" y2="${yy}" stroke="#BDBDBD" stroke-dasharray="3 3"/>`});
+  wrap.querySelector("svg")?.remove();wrap.insertAdjacentHTML("afterbegin",`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${wk?"Inspeções por semana":"Inspeções por dia"} e status">${g}</svg>`);
+  const tip=$("#tip");
+  wrap.querySelectorAll(".hit").forEach(r=>{const d=days[+r.dataset.i];
+    r.addEventListener("mousemove",e=>{const b=wrap.getBoundingClientRect();
+      tip.innerHTML=`<b>${wk?"Semana "+dbr(d.a).slice(0,5)+" a "+dbr(d.b).slice(0,5):dbr(d.a).slice(0,5)} · ${d.t} inspeções</b><br>`+PST.map((s,j)=>`<span class="dot" style="background:${PCOL[s]}"></span>${cap(s)}: ${d.v[j]}`).join("<br>");
+      tip.style.display="block";let x=e.clientX-b.left+wrap.scrollLeft+14;if(e.clientX-b.left+220>b.width)x-=230;tip.style.left=x+"px";tip.style.top=(e.clientY-b.top-10)+"px"});
+    r.addEventListener("mouseleave",()=>tip.style.display="none");
+    const go=()=>{F.dr=[d.a,d.b];ptab(2)};r.addEventListener("click",go);r.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();go()}})});
+}
+function pkm(){
+  const box=$("#kmc"),k=F.p?base().filter(i=>i.km!=null).sort((a,b)=>a.ts<b.ts?-1:1):[];
+  box.classList.toggle("hide",k.length<2);if(k.length<2)return;
+  $("#kmHd").textContent=nomeV(VP[F.p]||{placa:F.p})+" · "+nf(k[k.length-1].km-k[0].km)+" km no período";
+  const wrap=$("#kmw"),W=Math.max(wrap.clientWidth,600),H=240,m={l:64,r:16,t:20,b:34},pw=W-m.l-m.r,ph=H-m.t-m.b;
+  const lo=Math.min(...k.map(i=>i.km)),hi=Math.max(...k.map(i=>i.km)),sp=Math.max(1,hi-lo),x=i=>m.l+(k.length===1?pw/2:i*pw/(k.length-1)),y=v=>m.t+ph-((v-lo)/sp)*ph;
+  let g=`<line x1="${m.l}" x2="${W-m.r}" y1="${m.t+ph}" y2="${m.t+ph}" stroke="#BDBDBD"/>`;
+  [lo,hi].forEach(v=>g+=`<text x="${m.l-8}" y="${y(v)+4}" text-anchor="end" font-size="11" fill="#6D6E71">${nf(v)}</text><line x1="${m.l}" x2="${W-m.r}" y1="${y(v)}" y2="${y(v)}" stroke="#ECECEC"/>`);
+  g+=`<polyline fill="none" stroke="#008080" stroke-width="2.5" points="${k.map((i,j)=>x(j)+","+y(i.km)).join(" ")}"/>`;
+  const every=Math.ceil(k.length/12);
+  k.forEach((i,j)=>{g+=`<circle cx="${x(j)}" cy="${y(i.km)}" r="${k.length>60?2:4}" fill="#008080"><title>${fdt(i.ts)} · ${nf(i.km)} km</title></circle>`;
+    if(j%every===0||j===k.length-1)g+=`<text x="${x(j)}" y="${m.t+ph+18}" text-anchor="middle" font-size="11" fill="#5C5D54">${dbr(i.dia).slice(0,5)}</text>`});
+  wrap.innerHTML=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="Evolução do KM">${g}</svg>`;
+}
+const stTd=s=>`<span class="dot" style="background:${PCOL[s]||"#A7A9AC"}"></span>${esc(cap(s))}`;
+function precent(){
+  const r=prows().slice(0,12);
+  $("#tbl").innerHTML=`<tr><th>Data e hora</th><th>Tag</th><th>Placa</th><th>Veículo</th><th>Área</th><th class="nr">KM</th><th>Status</th><th class="nr">NC</th><th class="nr">PR</th></tr>`+
+   (r.length?r.map(i=>`<tr><td>${esc(fdt(i.ts))}</td><td><b>${esc(i.tag||"–")}</b></td><td>${esc(i.placa)}</td><td>${esc(i.veiculo)}</td><td>${esc(i.area)}</td><td class="nr">${i.km==null?"–":nf(i.km)}</td><td>${stTd(i.status)}</td><td class="nr">${i.nc}</td><td class="nr">${i.pr}</td></tr>`).join(""):`<tr><td colspan="9">Nenhuma inspeção no período.</td></tr>`);
+}
+function presumo(){
+  const fr=frotaAtiva(),u=hojeDe(),hv=fr.filter(v=>u[v.placa]).length,A=acaoLista(),nB=A.filter(r=>r.sit==="BLOQUEADO").length,nM=A.filter(r=>r.sit==="SEM ACESSO À MINA").length,S=A.filter(r=>r.sit==="SEM");
+  const b=base(),lib=b.filter(i=>i.status==="LIBERADO").length,{it,tot,t2}=prank(),mx=S.filter(r=>r.dias!=null).sort((a,c)=>c.dias-a.dias)[0];
+  $("#r1").innerHTML=`<b>Hoje:</b> ${hv} de ${fr.length} veículos inspecionados (${pct(hv,fr.length)}%).`+(nB||nM?` ${nB} ${nB===1?"bloqueado":"bloqueados"} e ${nM} sem acesso à mina aguardam correção.`:" Nenhum veículo bloqueado ou sem acesso à mina.");
+  $("#r2").innerHTML=`<b>Sem checklist:</b> `+(S.length?`${S.length} ${S.length===1?"veículo ainda não fez":"veículos ainda não fizeram"} o checklist hoje`+(mx&&mx.dias>1?`; o mais atrasado (${esc(nomeV(mx.v))}) está há ${mx.dias} dias sem inspeção.`:"."):"toda a frota ativa já fez o checklist hoje.");
+  $("#r3").innerHTML=`<b>${F.d===365?"12 meses":F.d+" dias"}:</b> `+(b.length?`${pct(lib,b.length)}% das ${nf(b.length)} inspeções saíram liberadas.`+(it.length>=2?` ${pct(t2,tot)}% das reprovações vêm de 2 itens.`:""):"nenhuma inspeção no período.");
+}
+function ptable(){
+  const k=SO.k;TR=prows();TR.sort((a,c)=>{const x=a[k]??"",y=c[k]??"";return(x>y?1:x<y?-1:0)*SO.d});
+  $("#tHd").textContent=nf(TR.length)+" inspeções";
+  const H=[["ts","Data e hora"],["turno","T"],["tag","Tag"],["placa","Placa"],["veiculo","Veículo"],["area","Área"],["nome","Condutor"],["km","KM"],["status","Status"],["nc","NC"],["pr","PR"]];
+  $("#tw").innerHTML=`<table class="ptb"><tr>${H.map(h=>`<th class="so${["km","nc","pr"].includes(h[0])?" nr":""}" data-k="${h[0]}">${h[1]}${k===h[0]?(SO.d>0?" ▲":" ▼"):""}</th>`).join("")}</tr>`+
+   TR.slice(0,LIM).map(i=>`<tr class="rw" data-o="${esc(i.cid)}"><td>${esc(fdt(i.ts))}</td><td>${i.turno??"–"}</td><td><b>${esc(i.tag||"–")}</b></td><td>${esc(i.placa)}</td><td>${esc(i.veiculo)}</td><td>${esc(i.area)}</td><td>${esc(i.nome)}</td><td class="nr">${i.km==null?"–":nf(i.km)}</td><td>${stTd(i.status)}</td><td class="nr">${i.nc}</td><td class="nr">${i.pr}</td></tr>`+
+    (OPEN.has(i.cid)?`<tr class="dt"><td colspan="11">Matrícula: ${esc(i.mat||"–")} · Código ${esc(String(i.cid).slice(0,8).toUpperCase())}<br>${i.itens.length?i.itens.map(x=>`${x.n}. ${esc(x.t)} <b style="color:${x.r==="NC"?PNC:"#9a6d12"}">${x.r}</b>`).join("<br>"):"Nenhum item reprovado."}</td></tr>`:"")).join("")+`</table>`+
+   (TR.length>LIM?`<p><button class="pbtn sec" id="more" type="button">Mostrar mais (${TR.length-LIM})</button></p>`:"")+`<div class="pleg">Toque numa linha para ver os itens reprovados.</div>`;
+}
+function ptab(n){$("#pg1").classList.toggle("hide",n!==1);$("#pg2").classList.toggle("hide",n!==2);$("#pt1").classList.toggle("on",n===1);$("#pt2").classList.toggle("on",n===2);LIM=50;prender()}
+$("#pt1").onclick=()=>ptab(1);$("#pt2").onclick=()=>ptab(2);
+$("#f_d").onchange=async()=>{const d=+$("#f_d").value;$("#f_d").disabled=true;try{await carregar(d);F.d=d}catch(e){$("#pload").className="pload err";$("#pload").textContent="Não foi possível carregar o período. Tente de novo."}$("#f_d").disabled=false;F.dr=null;LIM=50;prender()};
+["f_a","f_p","f_s"].forEach(id=>$("#"+id).onchange=()=>{F.a=$("#f_a").value;F.p=$("#f_p").value;F.s=$("#f_s").value;LIM=50;prender()});
+$("#f_q").oninput=e=>{F.q=e.target.value;LIM=50;ptable()};
+$("#chips").onclick=e=>{const c=e.target.closest("[data-x]");if(!c)return;if(c.dataset.x==="item")F.item=0;else F.dr=null;prender()};
+$("#actMore").onclick=()=>{ACTALL=!ACTALL;pacao()};
+$("#items").onclick=e=>{const c=e.target.closest("[data-k]");if(!c)return;F.item=+c.dataset.k;ptab(2)};
+$("#veh").onclick=e=>{const c=e.target.closest("[data-k]");if(!c)return;F.p=c.dataset.k;prender()};
 $("#tw").onclick=e=>{const h=e.target.closest("th[data-k]"),r=e.target.closest("tr[data-o]");
-  if(h){SO={k:h.dataset.k,d:SO.k===h.dataset.k?-SO.d:1};table()}
-  else if(r){const k=r.dataset.o;OPEN.has(k)?OPEN.delete(k):OPEN.add(k);table()}
-  else if(e.target.id==="more"){LIM+=50;table()}};
+  if(h){SO={k:h.dataset.k,d:SO.k===h.dataset.k?-SO.d:1};ptable()}
+  else if(r){const k=r.dataset.o;OPEN.has(k)?OPEN.delete(k):OPEN.add(k);ptable()}
+  else if(e.target.id==="more"){LIM+=50;ptable()}};
+addEventListener("resize",()=>{if(PT&&PD.hoje&&!$("#pg1").classList.contains("hide")){pdaily();pkm()}});
 $("#csv").onclick=()=>{const q=v=>'"'+String(v??"").replace(/"/g,'""')+'"';
-  const L=[["Data","Turno","Placa","Veículo","Área","KM","Status","NC","PR","Itens reprovados"].map(q).join(";")].concat(TR.map(i=>[dt(i.data),i.turno,i.placa,i.veiculo,i.area,i.km,i.status,i.nc,i.pr,i.itens.map(x=>x.n+". "+x.t+" ("+x.r+")").join(" | ")].map(q).join(";")));
-  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["\ufeff"+L.join("\n")],{type:"text/csv;charset=utf-8"}));a.download="inspecoes.csv";a.click()};
+  const L=[["Data e hora","Turno","Tag","Placa","Veículo","Área","Condutor","Matrícula","KM","Status","NC","PR","Itens reprovados"].map(q).join(";")].concat(TR.map(i=>[fdt(i.ts),i.turno,i.tag,i.placa,i.veiculo,i.area,i.nome,i.mat,i.km,i.status,i.nc,i.pr,i.itens.map(x=>x.n+". "+x.t+" ("+x.r+")").join(" | ")].map(q).join(";")));
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob(["﻿"+L.join("\n")],{type:"text/csv;charset=utf-8"}));a.download="inspecoes_"+iniP()+"_a_"+PD.hoje+".csv";a.click()};
 
 async function init(){
   if(PT){painel();return}
@@ -308,7 +527,7 @@ async function init(){
     if(DEMO)$("#demol").innerHTML='<p>Modo demo: <a href="?t=demo1">veículo 1</a> · <a href="?t=demo2">veículo 2</a></p>';return}
   let v,q=null;try{q=await consultar(T);v=q.v;W("v"+T,v)}catch(e){v=J("v"+T,null)}
   if(!v){$("#v1").classList.add("hide");$("#gate").classList.remove("hide");$("#gm").textContent="QR code inválido, veículo inativo ou sem conexão.";return}
-  $("#placa").value=v.placa;$("#veic").value=v.veiculo||"";$("#modelo").value=v.modelo||"";$("#area").value=v.area||"";$("#resp").value=v.responsavel||"";
+  $("#placa").value=v.placa;$("#tag").value=v.tag||"";$("#veic").value=v.veiculo||"";$("#modelo").value=v.modelo||"";$("#area").value=v.area||"";$("#resp").value=v.responsavel||"";
   VH=v;NM=!v.acesso_mina;reset();
   if(q){HX=q.h;W("h"+T,HX)}else HX=J("h"+T,[]);
   hist();
@@ -329,7 +548,7 @@ function pdf(p){
   d.setFont("helvetica","bold");d.setFontSize(11);d.text("CHECK LIST DE VEÍCULOS DE TRANSPORTE E UTILITÁRIOS",48,17.5);
   d.setFont("helvetica","normal");d.setFontSize(8.5);
   d.setDrawColor(0,147,148);d.setLineWidth(0.8);d.line(14,24,196,24);d.setLineWidth(0.2);y=32;
-  [["Veículo/Equipamento",p.veic],["Modelo",p.modelo],["Placa/TAG",p.placa],["Área",p.area],["Responsável",p.resp],["Data / Turno",fdt(p.data)+" / turno "+p.turno],["KM",p.km],["Condutor",p.nome],["Matrícula",p.matricula]].forEach((r,i)=>{
+  [["Tag do veículo",p.tag||"–"],["Placa",p.placa],["Veículo/Equipamento",p.veic],["Modelo",p.modelo],["Área",p.area],["Responsável",p.resp],["Data / Turno",fdt(p.data)+" / turno "+p.turno],["KM",p.km],["Condutor",p.nome],["Matrícula",p.matricula]].forEach((r,i)=>{
     const x=14+(i%2)*94,yy=y+Math.floor(i/2)*6;d.setFont("helvetica","bold");d.setFontSize(8.5);d.text(r[0]+":",x,yy);
     const w=d.getTextWidth(r[0]+": ");d.setFont("helvetica","normal");d.text(t(r[1]).slice(0,38),x+w+1,yy)});
   y+=34;d.setFillColor(0,147,148);d.rect(14,y-4.5,182,6,"F");d.setTextColor(255);d.setFont("helvetica","bold");d.text("Nº",16,y);d.text("Item",26,y);d.text("Res.",112,y);d.text("Observação",126,y);y+=6;
